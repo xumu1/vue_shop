@@ -11,8 +11,8 @@
       <!-- 搜索与添加区域 -->
       <el-row :gutter="20">
         <el-col :span="9">
-          <el-input placeholder="请输入内容">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getUserList">
+            <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
@@ -29,7 +29,7 @@
         <el-table-column label="状态">
           <template v-slot:default="scope">
             <!-- {{scope.row}} -->
-            <el-switch v-model="scope.row.mg_state"></el-switch>
+            <el-switch v-model="scope.row.mg_state" @change="userStateChanged(scope.row)"></el-switch>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180px">
@@ -56,23 +56,25 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage4"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :current-page="queryInfo.pagenum"
+        :page-sizes="[1, 2, 5, 10]"
+        :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
+        :total="total"
       ></el-pagination>
+      <!-- layout表示显示哪些导航栏结构 -->
     </el-card>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       // 获取用户列表的参数
       queryInfo: {
         query: '',
+        // 当前页数
         pagenum: 1,
         pagesize: 2
       },
@@ -80,11 +82,11 @@ export default {
       total: 0
     }
   },
-  created() {
+  created () {
     this.getUserList()
   },
   methods: {
-    async getUserList() {
+    async getUserList () {
       const { data: res } = await this.$http.get('users', {
         params: this.queryInfo
       })
@@ -94,6 +96,27 @@ export default {
       this.userlist = res.data.users
       this.total = res.data.total
       console.log(res)
+    },
+    // 监听pagesize改变的事件
+    handleSizeChange (newSize) {
+      this.queryInfo.pagesize = newSize
+      this.getUserList()
+      console.log(newSize)
+    },
+    // 监听页码改变的事件
+    handleCurrentChange (newPage) {
+      this.queryInfo.pagenum = newPage
+      this.getUserList()
+      console.log(newPage)
+    },
+    // 监听 switch 开关状态
+    async userStateChanged (userInfo) {
+      const { data: res } = await this.$http.put(`users/${userInfo.id}/state/${userInfo.mg_state}`)
+      if (res.meta.status !== 200) {
+        userInfo.mg_state = !userInfo.mg_state
+        return this.$message.error('更新用户状态失败！')
+      }
+      this.$message.success('更新状态成功')
     }
   }
 }
