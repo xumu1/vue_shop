@@ -3,7 +3,7 @@
     <div class="login_box">
       <!-- 头像区 -->
       <div class="avatar_box">
-        <img src="../assets/logo.png" alt='' />
+        <img src="../assets/logo.png" alt/>
       </div>
       <!-- 登录表单区 -->
       <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
@@ -17,7 +17,7 @@
         </el-form-item>
         <!-- button -->
         <el-form-item class="btns">
-          <el-button type="primary" >主要按钮</el-button>
+          <el-button type="primary" @click="login" >登录</el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
@@ -52,6 +52,12 @@ export default {
     resetLoginForm () {
       // console.log(this)
       this.$refs.loginFormRef.resetFields()
+    },
+    login () {
+      // 通过返回的valid可以知道表单验证是否通过
+      this.$refs.loginFormRef.validate((valid) => {
+        console.log(valid)
+      })
     }
   }
 }
