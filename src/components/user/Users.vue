@@ -34,7 +34,6 @@
         </el-table-column>
         <el-table-column label="操作" width="180px">
           <template v-slot:default="scope">
-            <div v-show="false">{{ scope.row }}</div>
             <!-- 修改按钮 -->
             <el-button
               type="primary"
@@ -137,19 +136,19 @@ export default {
   data() {
     // 验证邮箱规则
     var checkEmail = (rule, value, cb) => {
-      // const regEmail = /^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\.)+[a-z]{2,}$/
-      // if (regEmail.test(value)) {
-      return cb()
-      // }
-      // cb(new Error('请输入合法邮箱'))
+      const regEmail = /^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\.)+[a-z]{2,}$/
+      if (regEmail.test(value)) {
+        return cb()
+      }
+      cb(new Error('请输入合法邮箱'))
     }
     // 验证手机号规则
     var checkMobile = (rule, value, cb) => {
-      // const regMobile = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
-      // if (regMobile.test(value)) {
-      return cb()
-      // }
-      // cb(new Error('请输入合法电话号码'))
+      const regMobile = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+      if (regMobile.test(value)) {
+        return cb()
+      }
+      cb(new Error('请输入合法电话号码'))
     }
     return {
       // 获取用户列表的参数
