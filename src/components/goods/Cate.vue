@@ -16,37 +16,7 @@
       </el-row>
 
       <!-- 表格区域 -->
-      <el-table :data="userlist" border stripe>
-        <el-table-column type="index" label="#"></el-table-column>
-        <el-table-column label="姓名" prop="username"></el-table-column>
-        <el-table-column label="邮箱" prop="email"></el-table-column>
-        <el-table-column label="电话" prop="mobile"></el-table-column>
-        <el-table-column label="角色" prop="role_name"></el-table-column>
-        <el-table-column label="状态">
-          <template v-slot:default="scope">
-            <!-- {{scope.row}} -->
-            <el-switch v-model="scope.row.mg_state" @change="userStateChanged(scope.row)"></el-switch>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="180px">
-          <template v-slot:default="scope">
-            <!-- 修改按钮 -->
-            <el-button
-              type="primary"
-              icon="el-icon-edit"
-              size="mini"
-              @click="showEditDialog(scope.row.id)"
-            ></el-button>
-            <!-- 删除按钮 -->
-            <el-button
-              type="danger"
-              icon="el-icon-delete"
-              size="mini"
-              @click="removeUserById(scope.row.id)"
-            ></el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+      <!-- <tree-table></tree-table> -->
       <!-- 分页导航区域 -->
     </el-card>
   </div>
