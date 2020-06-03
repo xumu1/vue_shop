@@ -39,7 +39,7 @@ const routes = [{
     component: Roles
   },
   {
-    path: '/goods',
+    path: '/categories',
     component: Cate
   }
   ]

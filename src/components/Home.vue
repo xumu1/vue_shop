@@ -15,15 +15,17 @@
       <el-aside :width="isCollapse ? '64px' : '200px'">
         <div class="toggle-button" @click="toggleCollaps">&lt;&lt;&lt;</div>
         <!-- 侧边栏菜单栏区域 -->
-        <el-menu background-color="#333744"
-        text-color="#fff"
-        active-text-color="#409BFF"
-        unique-opened
-        :collapse="isCollapse"
-        :collapse-transition="false"
-        :router="true"
-        :default-active="activePath">
-        <!-- 也可以default-active="$router.path"> -->
+        <el-menu
+          background-color="#333744"
+          text-color="#fff"
+          active-text-color="#409BFF"
+          unique-opened
+          :collapse="isCollapse"
+          :collapse-transition="false"
+          :router="true"
+          :default-active="activePath"
+        >
+          <!-- 也可以default-active="$router.path"> -->
           <!-- 一级菜单 -->
           <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
             <!-- 一级菜单模板区域 -->
@@ -34,9 +36,12 @@
               <span>{{item.authName}}</span>
             </template>
             <!-- 二级菜单 -->
-            <el-menu-item :index="'/'+subItem.path" v-for="subItem in item.children"
-            :key="subItem.id"
-            @click="saveNavState('/'+subItem.path)">
+            <el-menu-item
+              :index="'/'+subItem.path"
+              v-for="subItem in item.children"
+              :key="subItem.id"
+              @click="saveNavState('/'+subItem.path)"
+            >
               <template slot="title">
                 <!-- 图标 -->
                 <i class="el-icon-menu"></i>
@@ -57,7 +62,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       menulist: [],
       iconsObj: {
@@ -73,27 +78,27 @@ export default {
       activePath: ''
     }
   },
-  created () {
+  created() {
     this.getMenuList()
     this.activePath = sessionStorage.getItem('activePath')
   },
   methods: {
-    logout () {
+    logout() {
       sessionStorage.clear()
       this.$router.push('/login')
     },
     // 获取所有菜单
-    async getMenuList () {
+    async getMenuList() {
       const { data: res } = await this.$http.get('menus')
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
       this.menulist = res.data
-      // console.log(res)
+      console.log(res)
     },
     // 点击按钮，切换折叠和展开
-    toggleCollaps () {
+    toggleCollaps() {
       this.isCollapse = !this.isCollapse
     },
-    saveNavState (activePath) {
+    saveNavState(activePath) {
       sessionStorage.setItem('activePath', activePath)
       this.activePath = activePath
     }
@@ -137,7 +142,7 @@ export default {
   margin-right: 10px;
 }
 .toggle-button {
-  background-color: #4A5064;
+  background-color: #4a5064;
   font-size: 15px;
   line-height: 24px;
   color: #fff;
