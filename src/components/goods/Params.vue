@@ -232,6 +232,7 @@ export default {
         return this.$message.error('getParamsData error')
       }
       this.$message.success('getParamsData success')
+      console.log('test')
       console.log(res.data)
       res.data.forEach(element => {
         // 防止"".split()会返回一个空字符串数组，进行一下判断
