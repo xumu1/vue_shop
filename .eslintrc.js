@@ -3,18 +3,15 @@ module.exports = {
   env: {
     node: true
   },
-  extends: [
-    'plugin:vue/essential',
-    '@vue/standard'
-  ],
+  extends: ['plugin:vue/essential', '@vue/standard'],
   parserOptions: {
     parser: 'babel-eslint'
   },
   rules: {
-    "indent": ["off", 2],
+    indent: ['off', 2],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    "space-before-function-paren": [0, "always"],
-    "camelcase": 0
+    'space-before-function-paren': [0, 'always'],
+    camelcase: 0
   }
 }

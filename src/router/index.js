@@ -10,55 +10,57 @@ import Cate from '../components/goods/Cate'
 import Params from '../components/goods/Params'
 import List from '../components/goods/List'
 import Order from '../components/order/Order'
-
+// import test1 from '../components/testForm'
 Vue.use(VueRouter)
 
-const routes = [{
-  path: '/login',
-  component: Login
-},
-{
-  path: '/',
-  redirect: '/login'
-},
-{
-  path: '/home',
-  component: Home,
-  redirect: '/welcome',
-  children: [{
-    path: '/welcome',
-    component: Welcome
+const routes = [
+  {
+    path: '/login',
+    component: Login
   },
   {
-    path: '/users',
-    component: Users
+    path: '/',
+    redirect: '/login'
   },
   {
-    path: '/rights',
-    component: Rights
-  },
-  {
-    path: '/roles',
-    component: Roles
-  },
-  {
-    path: '/categories',
-    component: Cate
-  },
-  {
-    path: '/params',
-    component: Params
-  },
-  {
-    path: '/goods',
-    component: List
-  },
-  {
-    path: '/orders',
-    component: Order
+    path: '/home',
+    component: Home,
+    redirect: '/welcome',
+    children: [
+      {
+        path: '/welcome',
+        component: Welcome
+      },
+      {
+        path: '/users',
+        component: Users
+      },
+      {
+        path: '/rights',
+        component: Rights
+      },
+      {
+        path: '/roles',
+        component: Roles
+      },
+      {
+        path: '/categories',
+        component: Cate
+      },
+      {
+        path: '/params',
+        component: Params
+      },
+      {
+        path: '/goods',
+        component: List
+      },
+      {
+        path: '/orders',
+        component: Order
+      }
+    ]
   }
-  ]
-}
 ]
 
 const router = new VueRouter({
